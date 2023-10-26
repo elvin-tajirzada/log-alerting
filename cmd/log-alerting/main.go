@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/elvin-tacirzade/log-alerting/pkg/app"
+	"github.com/elvin-tajirzada/log-alerting/pkg/app"
 	"log"
 )
 

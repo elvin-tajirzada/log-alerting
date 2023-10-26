@@ -4,6 +4,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/elvin-tacirzade/telegobot v1.0.1 h1:fS8TwfzNW6/eFd+UBEVhyyTUDSvQTXy0GPxPGz/Qjvo=
 github.com/elvin-tacirzade/telegobot v1.0.1/go.mod h1:BMPiTUDo8MWg7de1OGeszq2WbZ9XfrjIJDEiB91mv6Q=
+github.com/elvin-tajirzada/telegobot v1.0.2 h1:oA4zSHd7svI/2gx9+pgKlRlWU6knrxbivjhk2W52umg=
+github.com/elvin-tajirzada/telegobot v1.0.2/go.mod h1:bWampmYIGrNa8dZ77xYf6WR6EaGV0XWTdFPJtUQw4rk=
 github.com/go-co-op/gocron v1.31.0 h1:8VaWk7ARDpsVYFP8SmjvHrBZQkcPQ7HyAzF7acG57yE=
 github.com/go-co-op/gocron v1.31.0/go.mod h1:39f6KNSGVOU1LO/ZOoZfcSxwlsJDQOKSu8erN0SH48Y=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=

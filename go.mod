@@ -1,9 +1,9 @@
-module github.com/elvin-tacirzade/log-alerting
+module github.com/elvin-tajirzada/log-alerting
 
 go 1.20
 
 require (
-	github.com/elvin-tacirzade/telegobot v1.0.1
+	github.com/elvin-tajirzada/telegobot v1.0.2
 	github.com/go-co-op/gocron v1.31.0
 )
 

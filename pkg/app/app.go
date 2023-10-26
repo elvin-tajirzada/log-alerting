@@ -2,9 +2,9 @@ package app
 
 import (
 	"fmt"
-	"github.com/elvin-tacirzade/log-alerting/pkg/config"
-	"github.com/elvin-tacirzade/log-alerting/pkg/contact-point"
-	"github.com/elvin-tacirzade/log-alerting/pkg/db"
+	"github.com/elvin-tajirzada/log-alerting/pkg/config"
+	"github.com/elvin-tajirzada/log-alerting/pkg/contact-point"
+	"github.com/elvin-tajirzada/log-alerting/pkg/db"
 	"github.com/go-co-op/gocron"
 	"log"
 	"os"

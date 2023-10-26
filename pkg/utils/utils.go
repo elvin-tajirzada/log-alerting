@@ -1,6 +1,6 @@
 package utils
 
-import "github.com/elvin-tacirzade/log-alerting/pkg/models"
+import "github.com/elvin-tajirzada/log-alerting/pkg/models"
 
 func GroupBy(lokiLogEntry *models.LokiLogEntry) map[string]map[string][]models.Stream {
 	groups := make(map[string]map[string][]models.Stream)

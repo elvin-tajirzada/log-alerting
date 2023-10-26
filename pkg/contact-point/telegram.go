@@ -2,11 +2,11 @@ package contact_point
 
 import (
 	"fmt"
-	"github.com/elvin-tacirzade/log-alerting/pkg/config"
-	"github.com/elvin-tacirzade/log-alerting/pkg/db"
-	"github.com/elvin-tacirzade/log-alerting/pkg/models"
-	"github.com/elvin-tacirzade/log-alerting/pkg/utils"
-	"github.com/elvin-tacirzade/telegobot"
+	"github.com/elvin-tajirzada/log-alerting/pkg/config"
+	"github.com/elvin-tajirzada/log-alerting/pkg/db"
+	"github.com/elvin-tajirzada/log-alerting/pkg/models"
+	"github.com/elvin-tajirzada/log-alerting/pkg/utils"
+	"github.com/elvin-tajirzada/telegobot"
 	"log"
 	"net/url"
 	"strconv"

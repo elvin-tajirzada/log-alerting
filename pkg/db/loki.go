@@ -3,8 +3,8 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/elvin-tacirzade/log-alerting/pkg/config"
-	"github.com/elvin-tacirzade/log-alerting/pkg/models"
+	"github.com/elvin-tajirzada/log-alerting/pkg/config"
+	"github.com/elvin-tajirzada/log-alerting/pkg/models"
 	"io"
 	"net/http"
 	"strconv"
