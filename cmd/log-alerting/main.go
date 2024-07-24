@@ -1,20 +1,17 @@
 package main
 
 import (
-	"github.com/elvin-tajirzada/log-alerting/pkg/app"
 	"log"
+
+	"github.com/elvin-tajirzada/log-alerting/internal/app"
 )
 
 func main() {
-	// create app
 	a, err := app.New()
 	if err != nil {
-		log.Fatalf("failed to create a new app: %v", err)
+		log.Fatalf("Unable to create app: %v", err)
 	}
 
-	// start app
 	a.Start()
-
-	// shutdown app
 	a.Shutdown()
 }

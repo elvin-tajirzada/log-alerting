@@ -14,53 +14,41 @@ const (
 )
 
 type Config struct {
+	Loki            *Loki
+	Telegram        *Telegram
 	EvaluationTime  time.Duration
 	Timezone        *time.Location
 	GrafanaPanelURL *url.URL
-	Loki            loki
-	Telegram        telegram
 }
 
-type telegram struct {
+type Telegram struct {
 	Token  string
 	ChatID string
 }
 
-type loki struct {
+type Loki struct {
 	URL string
 }
 
 func New() (*Config, error) {
-	// evaluation time
-	var (
-		evaluationTime = os.Getenv("EVALUATION_TIME")
-		evalTime       = evaluationTimeDefault
-		evalTimeErr    error
-	)
-
-	if evaluationTime != "" {
-		evalTime, evalTimeErr = time.ParseDuration(evaluationTime)
-		if evalTimeErr != nil {
-			return nil, fmt.Errorf("failed to parse EVALUATION_TIME: %v", evalTimeErr)
-		}
+	evalTime, err := getEvaluationTime()
+	if err != nil {
+		return nil, err
 	}
 
-	// timezone
 	timezone := os.Getenv("TIMEZONE")
 
 	location, locationErr := time.LoadLocation(timezone)
 	if locationErr != nil {
-		return nil, fmt.Errorf("failed to load timezone: %v", locationErr)
+		return nil, fmt.Errorf("unable to load timezone: %v", locationErr)
 	}
 
-	// grafana panel URL
 	grafanaPanelURL := os.Getenv("GRAFANA_PANEL_URL")
 	u, uErr := url.ParseRequestURI(grafanaPanelURL)
 	if uErr != nil {
-		return nil, fmt.Errorf("failed to parse GRAFANA_PANEL_URL: %s", uErr)
+		return nil, fmt.Errorf("unable to parse GRAFANA_PANEL_URL: %s", uErr)
 	}
 
-	// loki
 	lokiHost := os.Getenv("LOKI_HOST")
 	if lokiHost == "" {
 		return nil, fmt.Errorf("environment parameter `LOKI_HOST` can't be empty")
@@ -73,7 +61,6 @@ func New() (*Config, error) {
 
 	lokiURL := fmt.Sprintf("%s://%s:%s/%s", lokiProtocol, lokiHost, lokiPort, lokiEndpoint)
 
-	// telegram
 	telegramToken := os.Getenv("TELEGRAM_TOKEN")
 	if telegramToken == "" {
 		return nil, fmt.Errorf("environment parameter `TELEGRAM_TOKEN` can't be empty")
@@ -88,12 +75,26 @@ func New() (*Config, error) {
 		EvaluationTime:  evalTime,
 		Timezone:        location,
 		GrafanaPanelURL: u,
-		Telegram: telegram{
+		Telegram: &Telegram{
 			Token:  telegramToken,
 			ChatID: telegramChatID,
 		},
-		Loki: loki{
+		Loki: &Loki{
 			URL: lokiURL,
 		},
 	}, nil
+}
+
+func getEvaluationTime() (time.Duration, error) {
+	evaluationTime := os.Getenv("EVALUATION_TIME")
+	if evaluationTime == "" {
+		return evaluationTimeDefault, nil
+	}
+
+	evalTime, err := time.ParseDuration(evaluationTime)
+	if err != nil {
+		return 0, fmt.Errorf("unable to parse EVALUATION_TIME: %v", err)
+	}
+
+	return evalTime, nil
 }

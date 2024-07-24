@@ -17,13 +17,13 @@ telegram.
 <table>
     <tr>
       <td>
-        <img alt="Server Error" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/photos/server_error.jpg?raw=true">
+        <img alt="Server Error" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/assets/server_error.jpg?raw=true">
       </td>
       <td>
-        <img alt="Daily Report" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/photos/daily_report.jpg?raw=true">
+        <img alt="Daily Report" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/assets/daily_report.jpg?raw=true">
       </td>
       <td>
-        <img alt="Daily Report" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/photos/daily_report_no_error.jpg?raw=true">
+        <img alt="Daily Report" src="https://github.com/elvin-tacirzade/log-alerting/blob/main/assets/daily_report_no_error.jpg?raw=true">
       </td>
     </tr>
 </table>

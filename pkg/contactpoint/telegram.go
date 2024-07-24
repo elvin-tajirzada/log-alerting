@@ -1,16 +1,17 @@
-package contact_point
+package contactpoint
 
 import (
 	"fmt"
-	"github.com/elvin-tajirzada/log-alerting/pkg/config"
-	"github.com/elvin-tajirzada/log-alerting/pkg/db"
-	"github.com/elvin-tajirzada/log-alerting/pkg/models"
-	"github.com/elvin-tajirzada/log-alerting/pkg/utils"
-	"github.com/elvin-tajirzada/telegobot"
 	"log"
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/elvin-tajirzada/log-alerting/internal/config"
+	"github.com/elvin-tajirzada/log-alerting/internal/models"
+	"github.com/elvin-tajirzada/log-alerting/pkg/db"
+	"github.com/elvin-tajirzada/log-alerting/pkg/utils"
+	"github.com/elvin-tajirzada/telegobot"
 )
 
 type Telegram struct {
@@ -21,9 +22,9 @@ type Telegram struct {
 }
 
 func NewTelegram(conf *config.Config, loki *db.Loki) (*Telegram, error) {
-	t, tErr := telegobot.Start(conf.Telegram.Token, conf.Telegram.ChatID)
-	if tErr != nil {
-		return nil, fmt.Errorf("failed to start telegobot: %v", tErr)
+	t, err := telegobot.Start(conf.Telegram.Token, conf.Telegram.ChatID)
+	if err != nil {
+		return nil, fmt.Errorf("unable to start telegobot: %v", err)
 	}
 
 	return &Telegram{
@@ -73,18 +74,18 @@ Keep going 👨🏻‍💻
 }
 
 func (t *Telegram) getLokiData(evaluationTime time.Duration) *models.LokiLogEntry {
-	lokiLogEntry, lokiLogEntryErr := t.Loki.Get(evaluationTime)
-	if lokiLogEntryErr != nil {
-		log.Fatalf("failed to get data from loki: %v", lokiLogEntryErr)
+	lokiLogEntry, err := t.Loki.Get(evaluationTime)
+	if err != nil {
+		log.Fatalf("unable to get data from loki: %v", err)
 	}
 
 	return lokiLogEntry
 }
 
 func (t *Telegram) send(msg string) {
-	sendMessageErr := t.Telegobot.SendMessage(msg)
-	if sendMessageErr != nil {
-		log.Fatalf("failed to send message to telegram: %v", sendMessageErr)
+
+	if err := t.Telegobot.SendMessage(msg); err != nil {
+		log.Fatalf("unable to send message to telegram: %v", err)
 	}
 }
 
@@ -114,7 +115,7 @@ Panel URL: %s
 		stream.Status,
 		stream.Path,
 		stream.Msg,
-		stream.Ts.Format(time.DateTime),
+		stream.Ts,
 		t.GrafanaPanelURL.String(),
 	)
 }

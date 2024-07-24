@@ -3,12 +3,13 @@ package db
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/elvin-tajirzada/log-alerting/pkg/config"
-	"github.com/elvin-tajirzada/log-alerting/pkg/models"
 	"io"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/elvin-tajirzada/log-alerting/internal/config"
+	"github.com/elvin-tajirzada/log-alerting/internal/models"
 )
 
 const query = "{job=\"log-exporter\"} | json | status =~ `^5\\d\\d$`"
@@ -28,9 +29,9 @@ func (l *Loki) Get(evaluationTime time.Duration) (*models.LokiLogEntry, error) {
 	startTimeStr := strconv.FormatInt(startTime.UnixNano(), 10)
 
 	// create the HTTP request
-	req, reqErr := http.NewRequest("GET", l.URL, nil)
-	if reqErr != nil {
-		return nil, fmt.Errorf("error creating HTTP request: %v", reqErr)
+	req, err := http.NewRequest("GET", l.URL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating HTTP request: %v", err)
 	}
 
 	q := req.URL.Query()
@@ -41,17 +42,17 @@ func (l *Loki) Get(evaluationTime time.Duration) (*models.LokiLogEntry, error) {
 	// send the HTTP request
 	client := &http.Client{}
 
-	resp, respErr := client.Do(req)
-	if respErr != nil {
-		return nil, fmt.Errorf("error sending HTTP request: %v", respErr)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending HTTP request: %v", err)
 	}
 
 	defer resp.Body.Close()
 
 	// read the response body
-	body, bodyErr := io.ReadAll(resp.Body)
-	if bodyErr != nil {
-		return nil, fmt.Errorf("failed to read response body: %v", bodyErr)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read response body: %v", err)
 	}
 
 	// check status code
@@ -61,8 +62,8 @@ func (l *Loki) Get(evaluationTime time.Duration) (*models.LokiLogEntry, error) {
 
 	// unmarshal json
 	var lokiLogEntry models.LokiLogEntry
-	if unmarshalErr := json.Unmarshal(body, &lokiLogEntry); unmarshalErr != nil {
-		return nil, fmt.Errorf("failed to unmarshal json: %v", unmarshalErr)
+	if err := json.Unmarshal(body, &lokiLogEntry); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal json: %v", err)
 	}
 
 	return &lokiLogEntry, nil
